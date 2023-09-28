@@ -1,11 +1,15 @@
-import Models3D from "./components/Models3D";
+import Scene from "./components/Scene";
 import FromBlender from "./components/FromBlender";
 
 function App() {
-  return (
+  // return (
+  // <>
+  //  <FromBlender/>
+  // </>
+  // )
+    return (
   <>
-   {/*<Models3D/>*/}
-   <FromBlender/>
+   <Scene/>
   </>
   )
 };

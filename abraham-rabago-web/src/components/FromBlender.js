@@ -49,6 +49,8 @@ const FromBlender = () => {
 
         camera.lookAt(0,0,0);
 
+
+        // Lights
         const ambienatlight = new THREE.AmbientLight(0x404040, 50);
         scene.add(ambienatlight);
         
