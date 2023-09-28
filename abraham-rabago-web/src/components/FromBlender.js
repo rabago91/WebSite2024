@@ -11,12 +11,14 @@ const FromBlender = () => {
         const { clientWidth: width, clientHeight: height } = currentRef;
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x8633FF);
+        // scene.background = new THREE.Color(0x8633FF);
+        scene.background = new THREE.Color(0xF3BAD7);
         const camera = new THREE.PerspectiveCamera(25, width / height, 0.01, 1000);
         scene.add(camera);
 
-        camera.position.z = 6;
-        camera.position.x = 7;
+        // camera.position.z = 8;
+        // camera.position.y = 7;
+        camera.position.set(0,7,8)
 
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
@@ -38,8 +40,8 @@ const FromBlender = () => {
         gltfLoader.load('./donut3D/Donut.gltf',
         (gltf) => {
             gltf.scene.scale.multiplyScalar(4);
-            gltf.scene.rotateZ(-1)
-            gltf.scene.rotateX(.1)
+            gltf.scene.rotateZ(0)
+            gltf.scene.rotateX(0)
             scene.add(gltf.scene)
         },
         () => {  },
@@ -54,9 +56,13 @@ const FromBlender = () => {
         const ambienatlight = new THREE.AmbientLight(0x404040, 50);
         scene.add(ambienatlight);
         
-        const pointlight = new THREE.PointLight(0x00000, 30);
-        pointlight.position.set(8, 8, 8);
+        const pointlight = new THREE.PointLight(0xffffff, 2);
         scene.add(pointlight);
+        pointlight.position.set(0, 0.5, -2);
+
+        const dirLight1 = new THREE.DirectionalLight(0xffffff, 1)
+        dirLight1.position.set(0,7,8)
+        scene.add(dirLight1)
         
         const clock = new THREE.Clock()
         const animate = () => {
@@ -72,10 +78,10 @@ const FromBlender = () => {
         }
 
         const resize = () => {
-            const updatedWidth = currentRef.clientWidth;
-            const updatedHeigth = currentRef.clientHeight;
-            renderer.setSize(updatedWidth, updatedHeigth);
-            camera.aspect = updatedWidth / updatedHeigth;
+            // const updatedWidth = currentRef.clientWidth;
+            // const updatedHeigth = currentRef.clientHeight;
+            renderer.setSize(currentRef.clientWidth, currentRef.clientHeight);
+            camera.aspect = currentRef.clientWidth / currentRef.clientHeight;
             camera.updateProjectionMatrix();
         }
 
