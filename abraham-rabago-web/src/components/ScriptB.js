@@ -91,8 +91,6 @@ gltfLoader.load(donutAux.url,
 
 //----------------------GUIs
 
-// const colorsSelections = gui.addFolder('Colores');
-
 gui.addColor(donutAux.colors, "Glaseado" )
     .onChange(() => { 
         Donut.getObjectByName('Glaseado').material.color.set(donutAux.colors.Glaseado)
