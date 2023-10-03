@@ -7,7 +7,16 @@ import * as dat from 'dat.gui'
 let currentMount = null;
 const gui = new dat.GUI()
 var Donut;
-
+const donutAux = {
+    colors: {
+        Glaseado: 0xFB88B5,
+        Chispas1: 0x458DE7,
+        Chispas2: 0xE752CD,
+        Chispas3: 0xE7D087,
+        Chispas4: 0x6D59E7
+    },
+    url: './donut3D/Donut2.gltf'
+}
 //Scene & Camera
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(
@@ -19,6 +28,25 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0,7,8)
 scene.add(camera)
 camera.lookAt(0,0,0);
+
+// -----------------------LOADER BAR LOGIC
+const loadingManager = new THREE.LoadingManager();
+
+loadingManager.onStart = function(url, item, total) {
+    console.log(`Started loading: ${url}`);
+}
+
+loadingManager.onProgress = function(url, loaded, total) {
+    console.log(`Currently loading file ${loaded}/${total} ${url}`);
+}
+
+loadingManager.onLoad = function() {
+    console.log(`Finished Loading`);
+}
+
+loadingManager.onError = function(url) {
+    console.error(`Problem loading: ${url}`);
+}
 
 // Renderer
 const renderer = new THREE.WebGLRenderer()
@@ -42,8 +70,8 @@ window.addEventListener('resize', resize)
 scene.background = new THREE.Color(0xF3BAD7);
 
 //3D Loader
-const gltfLoader = new GLTFLoader()
-gltfLoader.load('./donut3D/Donut2.gltf',
+const gltfLoader = new GLTFLoader(loadingManager)
+gltfLoader.load(donutAux.url,
 (gltf) => {
     let DonutLoaded =  gltf.scene;
     DonutLoaded.scale.multiplyScalar(4);
@@ -59,15 +87,7 @@ gltfLoader.load('./donut3D/Donut2.gltf',
 )
 
 
-const donutAux = {
-    colors: {
-        Glaseado: 0xFB88B5,
-        Chispas1: 0x458DE7,
-        Chispas2: 0xE752CD,
-        Chispas3: 0xE7D087,
-        Chispas4: 0x6D59E7
-    }
-}
+
 
 //----------------------GUIs
 
