@@ -4,7 +4,9 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui'
 
 
-let currentMount = null
+let currentMount = null;
+const gui = new dat.GUI()
+var Donut;
 
 //Scene & Camera
 const scene = new THREE.Scene()
@@ -16,6 +18,7 @@ const camera = new THREE.PerspectiveCamera(
 )
 camera.position.set(0,7,8)
 scene.add(camera)
+camera.lookAt(0,0,0);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer()
@@ -31,7 +34,7 @@ const resize = () => {
     renderer.setSize(currentMount.clientWidth, currentMount.clientHeight)
     camera.aspect = currentMount.clientWidth / currentMount.clientHeight
     camera.updateProjectionMatrix()
-    console.log('threeScene', scene)
+    // console.log('threeScene', scene)
 }
 window.addEventListener('resize', resize)
 
@@ -42,19 +45,54 @@ scene.background = new THREE.Color(0xF3BAD7);
 const gltfLoader = new GLTFLoader()
 gltfLoader.load('./donut3D/Donut2.gltf',
 (gltf) => {
-    const DonutModel =  gltf.scene;
-    DonutModel.scale.multiplyScalar(4);
-    DonutModel.rotateZ(0)
-    DonutModel.rotateX(0)
-    DonutModel.getObjectByName('Glaseado').material.color.setHex(0x00FF00)
-    scene.add(DonutModel)
+    let DonutLoaded =  gltf.scene;
+    DonutLoaded.scale.multiplyScalar(4);
+    DonutLoaded.rotateZ(0)
+    DonutLoaded.rotateX(0)
+    // DonutModel.getObjectByName('Glaseado').material.color.setHex(0xFF0FF0)
+    scene.add(DonutLoaded)
+
+    Donut = DonutLoaded;
 },
 () => {  },
 () => {  }
 )
 
 
-camera.lookAt(0,0,0);
+const donutAux = {
+    colors: {
+        Glaseado: 0xFB88B5,
+        Chispas1: 0x458DE7,
+        Chispas2: 0xE752CD,
+        Chispas3: 0xE7D087,
+        Chispas4: 0x6D59E7
+    }
+}
+
+//----------------------GUIs
+
+// const colorsSelections = gui.addFolder('Colores');
+
+gui.addColor(donutAux.colors, "Glaseado" )
+    .onChange(() => { 
+        Donut.getObjectByName('Glaseado').material.color.set(donutAux.colors.Glaseado)
+ })
+ gui.addColor(donutAux.colors, "Chispas1" )
+    .onChange(() => { 
+        Donut.getObjectByName('Chispas1').material.color.set(donutAux.colors.Chispas1)
+ })
+ gui.addColor(donutAux.colors, "Chispas2" )
+ .onChange(() => { 
+     Donut.getObjectByName('Chispas2').material.color.set(donutAux.colors.Chispas2)
+})
+gui.addColor(donutAux.colors, "Chispas3" )
+.onChange(() => { 
+    Donut.getObjectByName('Chispas3').material.color.set(donutAux.colors.Chispas3)
+})
+gui.addColor(donutAux.colors, "Chispas4" )
+.onChange(() => { 
+    Donut.getObjectByName('Chispas4').material.color.set(donutAux.colors.Chispas4)
+})
 
 
 // Lights
@@ -71,8 +109,12 @@ scene.add(dirLight1)
 
 
 
+const clock = new THREE.Clock()
+
 //Render the scene
 const animate = () => { 
+    const elapsedTime = clock.getElapsedTime()
+    if (Donut) Donut.rotation.y = -elapsedTime/2
     controls.update()
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
@@ -84,6 +126,7 @@ export const mountSceneB = (mountRef) => {
 currentMount = mountRef.current
 resize()
 currentMount.appendChild(renderer.domElement)
+// console.log('scene Children:', scene.children[4])
 }
 
 export const cleanUpScene = () => { 
@@ -93,5 +136,6 @@ export const cleanUpScene = () => {
           child.geometry.dispose()
         }
       })
+    //   gui.destroy();
     currentMount.removeChild(renderer.domElement)
 }
