@@ -7,10 +7,24 @@
   padding: 0;
 }
 
-.loader{
+.loader {
   width: var(--loader-size);
   position: absolute;
-  top: calc(50% - (var(--loader-size)/2));
-  left: calc(50% - (var(--loader-size)/2));
+  top: calc(50% - (var(--loader-size) / 2));
+  left: calc(50% - (var(--loader-size) / 2));
   pointer-events: none;
 }
+.hide {
+  visibility: hidden;
+}
+.show {
+  visibility: visible;
+}
+/* #gui_css{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    width: 800px;
+    height: 200px;
+  } */
