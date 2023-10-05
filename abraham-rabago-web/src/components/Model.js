@@ -11,6 +11,8 @@ let currentMount = null;
 const gui = new dat.GUI();
 gui.hide();
 
+let useSetLoadValue = (val) => {};
+
 var Donut;
 const donutAux = {
   colors: {
@@ -31,14 +33,13 @@ camera.lookAt(0, 0, 0);
 
 // -----------------------LOADER BAR LOGIC
 
-let currentLoadProgress = {
+const currentLoadProgress = {
   startedLoading: false,
   isLoaded: false,
   progressPercent: 0,
   totalEmenentsToLoad: 0,
   currentlyLoadingElementNumber: 0,
   currentlyLoadingElementName: "",
-
 };
 
 const loadingManager = new THREE.LoadingManager();
@@ -46,7 +47,7 @@ const loadingManager = new THREE.LoadingManager();
 loadingManager.onStart = function (url, item, total) {
   console.log(`Started loading: ${url}`);
   currentLoadProgress.startedLoading = true;
-//   currentLoadProgress.totalEmenentsToLoad = total;
+  //   currentLoadProgress.totalEmenentsToLoad = total;
 
   //   useSetLoadValue(currentLoadProgress);
 };
@@ -65,6 +66,10 @@ loadingManager.onLoad = function () {
   console.log(`Finished Loading`);
   currentLoadProgress.isLoaded = true;
   //   useSetLoadValue(currentLoadProgress);
+  torus.material.dispose();
+  torus.geometry.dispose();
+  scene.remove( torus);
+  // console.log('TORUUUUUUUUS', torus)
 };
 
 loadingManager.onError = function (url) {
@@ -91,6 +96,18 @@ window.addEventListener("resize", resize);
 
 // -----------------OBJECTS IN SCENE
 scene.background = new THREE.Color(0xf3bad7);
+
+// -------------TORUS
+const geometry = new THREE.TorusGeometry(0.8, 0.25, 32, 100);
+const material = new THREE.MeshStandardMaterial({
+  color: donutAux.colors.Glaseado,
+  roughness: 0,
+});
+const torus = new THREE.Mesh(geometry, material);
+// DonutLoaded.scale.multiplyScalar(4);
+// torus.rotateZ(0);
+torus.rotateX(THREE.MathUtils.degToRad(70));
+scene.add(torus);
 
 //3D Loader
 const gltfLoader = new GLTFLoader(loadingManager);
@@ -172,11 +189,12 @@ const animate = () => {
 animate();
 
 export const mountScene = (mountRef, isAnimationCompleted, setLoadValue) => {
-    console.log("(3)~~~~~~Render:Model<---");
-    currentMount = mountRef.current;
-  //   useSetLoadValue = setLoadValue;
+  console.log("(3)~~~~~~Render:Model<---");
+  currentMount = mountRef.current;
+  useSetLoadValue = setLoadValue;
   setLoadValue(currentLoadProgress);
   resize();
+  // shoulDisplayGui(false);
   shoulDisplayGui(isAnimationCompleted);
   currentMount.appendChild(renderer.domElement);
   // console.log('scene Children:', scene.children[4])

@@ -7,6 +7,10 @@
   padding: 0;
 }
 
+#root {
+  background-color: #f3bad7;
+}
+
 .loader {
   width: var(--loader-size);
   position: absolute;
@@ -16,15 +20,20 @@
 }
 .hide {
   visibility: hidden;
+  opacity: 0;
 }
 .show {
   visibility: visible;
+  opacity: 1;
+  transition: opacity 1s;
 }
-/* #gui_css{
-    position: absolute;
-    left: 50%;
-    top: 50%;
+@media only screen and (max-width: 600px) {
+  .dg.main {
+    margin-right: 0px !important;
+    width: 100% !important;
+  }
 
-    width: 800px;
-    height: 200px;
-  } */
+  .dg.main .close-button.close-bottom {
+    width: 100% !important;
+  }
+}
