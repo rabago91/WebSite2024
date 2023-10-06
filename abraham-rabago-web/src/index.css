@@ -72,3 +72,15 @@ html {
     width: 100% !important;
   }
 }
+
+/* DAT.UI */
+li.cr.color{
+  background-color: #805075 !important;
+}
+div.close-button.close-bottom{
+  background-color: #a50b82 !important;
+}
+
+input{
+  pointer-events: none !important;
+}

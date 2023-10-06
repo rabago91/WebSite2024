@@ -205,7 +205,7 @@ gui.addColor(donutAux.colors, "sprinkles1").onChange(() => {
       donutAux.colors.sprinkles1
     );
   }
-  if (geometryInstancesArary.length !== 0) {
+  if (!currentLoadProgress.isLoaded) {
     scene
       .getObjectByName("sprinklesGroup1")
       .material.color.set(donutAux.colors.sprinkles1);
@@ -217,7 +217,7 @@ gui.addColor(donutAux.colors, "sprinkles2").onChange(() => {
       donutAux.colors.sprinkles2
     );
   }
-  if (geometryInstancesArary.length !== 0) {
+  if (!currentLoadProgress.isLoaded) {
     scene
       .getObjectByName("sprinklesGroup2")
       .material.color.set(donutAux.colors.sprinkles2);
@@ -229,7 +229,7 @@ gui.addColor(donutAux.colors, "sprinkles3").onChange(() => {
       donutAux.colors.sprinkles3
     );
   }
-  if (geometryInstancesArary.length !== 0) {
+  if (!currentLoadProgress.isLoaded) {
     scene
       .getObjectByName("sprinklesGroup3")
       .material.color.set(donutAux.colors.sprinkles3);
@@ -241,7 +241,7 @@ gui.addColor(donutAux.colors, "sprinkles4").onChange(() => {
       donutAux.colors.sprinkles4
     );
   }
-  if (geometryInstancesArary.length !== 0) {
+  if (!currentLoadProgress.isLoaded) {
     scene
       .getObjectByName("sprinklesGroup4")
       .material.color.set(donutAux.colors.sprinkles4);
