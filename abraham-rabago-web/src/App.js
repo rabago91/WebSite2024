@@ -6,15 +6,15 @@ import BuyMeACoffee from "./components/buymeacoffee";
 // export const loadingContext = createContext();
 
 function App() {
-  console.log("(1)~~~~~~Render:App<---");
+  // console.log("(1)~~~~~~Render:App<---");
 
   // const [loadPercentage, setLoadPercentage] = useState(0);
   const [loadValue, setLoadValue] = useState(null);
   const [isAnimationCompleted, setIsAnimationCompleted] = useState(false);
 
-  console.log("loadState***********", loadValue);
+  // console.log("loadState***********", loadValue);
 
-  console.log("isAnimationCompleted", isAnimationCompleted);
+  // console.log("isAnimationCompleted", isAnimationCompleted);
 
   return (
     <>

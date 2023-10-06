@@ -6,7 +6,7 @@ const Scene = ({ isAnimationCompleted, setLoadValue }) => {
   const loadingValue = useRef(null);
 
   useEffect(() => {
-    console.log("(2)~~~~~~Render:Scene<---");
+    // console.log("(2)~~~~~~Render:Scene<---");
 
     // Init Scene
     mountScene(mountRef, isAnimationCompleted, setLoadValue);

@@ -45,7 +45,7 @@ const currentLoadProgress = {
 const loadingManager = new THREE.LoadingManager();
 
 loadingManager.onStart = function (url, item, total) {
-  console.log(`Started loading: ${url}`);
+  // console.log(`Started loading: ${url}`);
   currentLoadProgress.startedLoading = true;
   //   currentLoadProgress.totalEmenentsToLoad = total;
 
@@ -53,7 +53,7 @@ loadingManager.onStart = function (url, item, total) {
 };
 
 loadingManager.onProgress = function (url, loaded, total) {
-  console.log(`Currently loading file ${loaded}/${total} ${url}`);
+  // console.log(`Currently loading file ${loaded}/${total} ${url}`);
   currentLoadProgress.progressPercent = (loaded / total) * 100;
   currentLoadProgress.currentlyLoadingElementNumber = loaded;
   currentLoadProgress.currentlyLoadingElementName = url;
@@ -63,7 +63,7 @@ loadingManager.onProgress = function (url, loaded, total) {
 };
 
 loadingManager.onLoad = function () {
-  console.log(`Finished Loading`);
+  // console.log(`Finished Loading`);
   currentLoadProgress.isLoaded = true;
   //   useSetLoadValue(currentLoadProgress);
   //*delete
@@ -249,7 +249,7 @@ gui.addColor(donutAux.colors, "sprinkles4").onChange(() => {
 });
 
 const shoulDisplayGui = (isCompletedAnimation) => {
-  console.log(">>>>>>>shoulDisplayGui", isCompletedAnimation);
+  // console.log(">>>>>>>shoulDisplayGui", isCompletedAnimation);
   if (isCompletedAnimation) {
     gui.show();
   } else {
@@ -289,7 +289,7 @@ const animate = () => {
 animate();
 
 export const mountScene = (mountRef, isAnimationCompleted, setLoadValue) => {
-  console.log("(3)~~~~~~Render:Model<---");
+  // console.log("(3)~~~~~~Render:Model<---");
   currentMount = mountRef.current;
   useSetLoadValue = setLoadValue;
   setLoadValue(currentLoadProgress);
