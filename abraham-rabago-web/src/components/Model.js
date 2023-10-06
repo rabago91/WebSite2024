@@ -68,7 +68,7 @@ loadingManager.onLoad = function () {
   //   useSetLoadValue(currentLoadProgress);
   torus.material.dispose();
   torus.geometry.dispose();
-  scene.remove( torus);
+  scene.remove(torus);
   // console.log('TORUUUUUUUUS', torus)
 };
 
@@ -129,29 +129,38 @@ gltfLoader.load(
 //----------------------GUIs
 
 gui.addColor(donutAux.colors, "icing").onChange(() => {
-  Donut.getObjectByName("icing").material.color.set(
-    donutAux.colors.icing
-  );
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Glaseado").material.color.set(donutAux.colors.icing);
+  }
+  torus.material.color.set(donutAux.colors.icing);
 });
 gui.addColor(donutAux.colors, "sprinkles1").onChange(() => {
-  Donut.getObjectByName("sprinkles1").material.color.set(
-    donutAux.colors.sprinkles1
-  );
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas1").material.color.set(
+      donutAux.colors.sprinkles1
+    );
+  }
 });
 gui.addColor(donutAux.colors, "sprinkles2").onChange(() => {
-  Donut.getObjectByName("sprinkles2").material.color.set(
-    donutAux.colors.sprinkles2
-  );
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas2").material.color.set(
+      donutAux.colors.sprinkles2
+    );
+  }
 });
 gui.addColor(donutAux.colors, "sprinkles3").onChange(() => {
-  Donut.getObjectByName("sprinkles3").material.color.set(
-    donutAux.colors.sprinkles3
-  );
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas3").material.color.set(
+      donutAux.colors.sprinkles3
+    );
+  }
 });
 gui.addColor(donutAux.colors, "sprinkles4").onChange(() => {
-  Donut.getObjectByName("sprinkles4").material.color.set(
-    donutAux.colors.sprinkles4
-  );
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas4").material.color.set(
+      donutAux.colors.sprinkles4
+    );
+  }
 });
 
 const shoulDisplayGui = (isCompletedAnimation) => {
