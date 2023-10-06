@@ -22,7 +22,7 @@ const donutAux = {
     Chispas3: 0xe7d087,
     Chispas4: 0x6d59e7,
   },
-  url: "./donut3D/Donut2.gltf",
+  url: "./donut3D/Donut3.gltf",
 };
 //Scene & Camera
 const scene = new THREE.Scene();
