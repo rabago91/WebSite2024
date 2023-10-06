@@ -1,6 +1,7 @@
 import Scene from "./components/Scene";
 import LoaderUi from "./components/uiLoader";
 import { useState, createContext } from "react";
+import BuyMeACoffee from "./components/buymeacoffee";
 
 // export const loadingContext = createContext();
 
@@ -28,22 +29,9 @@ function App() {
         // isLoaded={isLoaded}
         setIsAnimationCompleted={setIsAnimationCompleted}
       />
+      <BuyMeACoffee isAnimationCompleted={isAnimationCompleted} />
     </>
   );
-  //       <loadingContext.Provider value={{ loadState, setLoadState }}>
-  //       <Scene
-  //         // className="hide"
-  //         setLoadPercentage={setLoadPercentage}
-  //         isAnimationCompleted={isAnimationCompleted}
-  //       />
-
-  //       <LoaderUi
-  //         // loadPercentage={loadPercentage}
-  //         // isLoaded={isLoaded}
-  //         setIsAnimationCompleted={setIsAnimationCompleted}
-  //       />
-  //     </loadingContext.Provider>
-  // );
 }
 
 export default App;

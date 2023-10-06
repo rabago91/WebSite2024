@@ -16,11 +16,11 @@ let useSetLoadValue = (val) => {};
 var Donut;
 const donutAux = {
   colors: {
-    Glaseado: 0xfb88b5,
-    Chispas1: 0x458de7,
-    Chispas2: 0xe752cd,
-    Chispas3: 0xe7d087,
-    Chispas4: 0x6d59e7,
+    icing: 0xfb88b5,
+    sprinkles1: 0x458de7,
+    sprinkles2: 0xe752cd,
+    sprinkles3: 0xe7d087,
+    sprinkles4: 0x6d59e7,
   },
   url: "./donut3D/Donut3.gltf",
 };
@@ -66,10 +66,11 @@ loadingManager.onLoad = function () {
   console.log(`Finished Loading`);
   currentLoadProgress.isLoaded = true;
   //   useSetLoadValue(currentLoadProgress);
-  torus.material.dispose();
-  torus.geometry.dispose();
-  scene.remove( torus);
-  // console.log('TORUUUUUUUUS', torus)
+  //*delete
+  deleteGeometry(torus);
+  geometryInstancesArary.forEach(function (e) {
+    deleteGeometry(e);
+  });
 };
 
 loadingManager.onError = function (url) {
@@ -97,17 +98,81 @@ window.addEventListener("resize", resize);
 // -----------------OBJECTS IN SCENE
 scene.background = new THREE.Color(0xf3bad7);
 
+function deleteGeometry(geometry) {
+  geometry.material.dispose();
+  geometry.geometry.dispose();
+  scene.remove(geometry);
+}
+
 // -------------TORUS
-const geometry = new THREE.TorusGeometry(0.8, 0.25, 32, 100);
+const geometry = new THREE.TorusGeometry(0.68, 0.41, 32, 100);
 const material = new THREE.MeshStandardMaterial({
-  color: donutAux.colors.Glaseado,
-  roughness: 0,
+  color: donutAux.colors.icing,
+  roughness: 0.3,
 });
+
 const torus = new THREE.Mesh(geometry, material);
-// DonutLoaded.scale.multiplyScalar(4);
-// torus.rotateZ(0);
-torus.rotateX(THREE.MathUtils.degToRad(70));
+torus.position.y = 0.35;
+torus.rotateX(THREE.MathUtils.degToRad(90));
 scene.add(torus);
+
+//  ------------ PILLS
+const geometryPill = new THREE.CapsuleGeometry(0.1, 0.4, 2, 8);
+const materialPill1 = new THREE.MeshPhongMaterial({
+  color: donutAux.colors.sprinkles1,
+  shininess: 100,
+});
+const materialPill2 = new THREE.MeshPhongMaterial({
+  color: donutAux.colors.sprinkles2,
+  shininess: 100,
+});
+const materialPill3 = new THREE.MeshPhongMaterial({
+  color: donutAux.colors.sprinkles3,
+  shininess: 100,
+});
+const materialPill4 = new THREE.MeshPhongMaterial({
+  color: donutAux.colors.sprinkles4,
+  shininess: 100,
+});
+
+let geometryInstancesArary = [];
+
+createClones(geometryPill, materialPill1, 30, 0.3, 10, "sprinklesGroup1");
+createClones(geometryPill, materialPill2, 30, 0.3, 10, "sprinklesGroup2");
+createClones(geometryPill, materialPill3, 30, 0.3, 10, "sprinklesGroup3");
+createClones(geometryPill, materialPill4, 30, 0.3, 10, "sprinklesGroup4");
+
+function createClones(
+  geometry,
+  material,
+  copiesNumber,
+  copyScale,
+  renderRadius,
+  nameId
+) {
+  let pillCopies = copiesNumber;
+  let instanceGroup = new THREE.InstancedMesh(geometry, material, pillCopies);
+  instanceGroup.name = nameId;
+  scene.add(instanceGroup);
+
+  const pillScale = copyScale;
+  instanceGroup.scale.set(pillScale, pillScale, pillScale);
+
+  const dummy = new THREE.Object3D();
+  for (let i = 0; i < pillCopies; i++) {
+    dummy.position.x = (Math.random() - 0.5) * 2 * renderRadius;
+    dummy.position.y = (Math.random() - 0.5) * 2 * renderRadius;
+    dummy.position.z = (Math.random() - 0.5) * 2 * renderRadius;
+    dummy.rotation.x = (Math.random() - 0.5) * 2 * renderRadius;
+    dummy.rotation.y = (Math.random() - 0.5) * 2 * renderRadius;
+    dummy.rotation.z = (Math.random() - 0.5) * 2 * renderRadius;
+
+    dummy.updateMatrix();
+    instanceGroup.setMatrixAt(i, dummy.matrix);
+  }
+
+  geometryInstancesArary = geometryInstancesArary.concat(instanceGroup);
+}
 
 //3D Loader
 const gltfLoader = new GLTFLoader(loadingManager);
@@ -128,30 +193,59 @@ gltfLoader.load(
 
 //----------------------GUIs
 
-gui.addColor(donutAux.colors, "Glaseado").onChange(() => {
-  Donut.getObjectByName("Glaseado").material.color.set(
-    donutAux.colors.Glaseado
-  );
+gui.addColor(donutAux.colors, "icing").onChange(() => {
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Glaseado").material.color.set(donutAux.colors.icing);
+  }
+  torus.material.color.set(donutAux.colors.icing);
 });
-gui.addColor(donutAux.colors, "Chispas1").onChange(() => {
-  Donut.getObjectByName("Chispas1").material.color.set(
-    donutAux.colors.Chispas1
-  );
+gui.addColor(donutAux.colors, "sprinkles1").onChange(() => {
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas1").material.color.set(
+      donutAux.colors.sprinkles1
+    );
+  }
+  if (geometryInstancesArary.length !== 0) {
+    scene
+      .getObjectByName("sprinklesGroup1")
+      .material.color.set(donutAux.colors.sprinkles1);
+  }
 });
-gui.addColor(donutAux.colors, "Chispas2").onChange(() => {
-  Donut.getObjectByName("Chispas2").material.color.set(
-    donutAux.colors.Chispas2
-  );
+gui.addColor(donutAux.colors, "sprinkles2").onChange(() => {
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas2").material.color.set(
+      donutAux.colors.sprinkles2
+    );
+  }
+  if (geometryInstancesArary.length !== 0) {
+    scene
+      .getObjectByName("sprinklesGroup2")
+      .material.color.set(donutAux.colors.sprinkles2);
+  }
 });
-gui.addColor(donutAux.colors, "Chispas3").onChange(() => {
-  Donut.getObjectByName("Chispas3").material.color.set(
-    donutAux.colors.Chispas3
-  );
+gui.addColor(donutAux.colors, "sprinkles3").onChange(() => {
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas3").material.color.set(
+      donutAux.colors.sprinkles3
+    );
+  }
+  if (geometryInstancesArary.length !== 0) {
+    scene
+      .getObjectByName("sprinklesGroup3")
+      .material.color.set(donutAux.colors.sprinkles3);
+  }
 });
-gui.addColor(donutAux.colors, "Chispas4").onChange(() => {
-  Donut.getObjectByName("Chispas4").material.color.set(
-    donutAux.colors.Chispas4
-  );
+gui.addColor(donutAux.colors, "sprinkles4").onChange(() => {
+  if (currentLoadProgress.isLoaded) {
+    Donut.getObjectByName("Chispas4").material.color.set(
+      donutAux.colors.sprinkles4
+    );
+  }
+  if (geometryInstancesArary.length !== 0) {
+    scene
+      .getObjectByName("sprinklesGroup4")
+      .material.color.set(donutAux.colors.sprinkles4);
+  }
 });
 
 const shoulDisplayGui = (isCompletedAnimation) => {
@@ -181,6 +275,12 @@ const clock = new THREE.Clock();
 const animate = () => {
   const elapsedTime = clock.getElapsedTime();
   if (Donut) Donut.rotation.y = -elapsedTime / 2;
+  if (true) {
+    // if (!currentLoadProgress.isLoaded) {
+    geometryInstancesArary.forEach((e) => {
+      e.rotation.y = THREE.MathUtils.degToRad(Math.sin(-elapsedTime / 4) * 180);
+    });
+  }
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);

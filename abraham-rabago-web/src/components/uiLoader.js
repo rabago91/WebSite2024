@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 // import {loadingContext} from '../App'
 import Lottie from "lottie-react";
-import loadinganimation from "./LottieAnimations/loadinganimationpink.json";
+import loadinganimation from "./LottieAnimations/loadinganimationdonutpink.json";
 
 const LoaderUi = ({ setIsAnimationCompleted }) => {
   const lottieRef = useRef(null);
@@ -12,11 +12,24 @@ const LoaderUi = ({ setIsAnimationCompleted }) => {
     // var animationFramesNumber = lottieRef.current.getDuration(true);
     // console.log("animationFramesNumber", animationFramesNumber);
     // lottieRef.current.setDirection(-1)
-    lottieRef.current.goToAndStop(5, true);
+
+    // -----------circle indicator
+    // lottieRef.current.goToAndStop(5, true);
+    // // lottieRef.current.pause();
+    // const timerPlay = setTimeout(() => {
+    //   lottieRef.current.play();
+    // }, 1000);
+    // const timerDestroy = setTimeout(() => {
+    //   lottieRef.current.destroy();
+    //   setIsAnimationCompleted(true);
+    // }, 2500);
+
+    // -----------donut indicator
+    // lottieRef.current.goToAndStop(5, true);
     // lottieRef.current.pause();
-    const timerPlay = setTimeout(() => {
-      lottieRef.current.play();
-    }, 1000);
+    // const timerPlay = setTimeout(() => {
+    //   lottieRef.current.play();
+    // }, 1000);
     const timerDestroy = setTimeout(() => {
       lottieRef.current.destroy();
       setIsAnimationCompleted(true);
@@ -29,8 +42,8 @@ const LoaderUi = ({ setIsAnimationCompleted }) => {
     //   }
 
     return () => {
-      clearTimeout(timerPlay);
-      clearTimeout(timerDestroy);
+      // clearTimeout(timerPlay);
+      // clearTimeout(timerDestroy);
     };
   }, [setIsAnimationCompleted]);
 

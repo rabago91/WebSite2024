@@ -1,10 +1,44 @@
 :root {
-  --loader-size: 20vh;
+  --loader-size: 40vh;
 }
 
 * {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+a {
+  background:
+    linear-gradient(
+      to right,
+      rgba(255, 101, 101, 0.37),
+      rgba(243, 65, 139, 0.404)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 98, 0.534),
+      rgba(255, 0, 179, 0.452),
+      rgba(147, 3, 204, 0.438)
+  );
+  background-size: 100% 3px, 0 3px;
+  background-position: 100% 100%, 0px 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  background-size: 0 3px, 100% 3px;
+}
+
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 #root {
@@ -14,7 +48,8 @@
 .loader {
   width: var(--loader-size);
   position: absolute;
-  top: calc(50% - (var(--loader-size) / 2));
+  top: calc(50% - (var(--loader-size) / 1));
+  /* top: calc(50% - (var(--loader-size) / 2)); */
   left: calc(50% - (var(--loader-size) / 2));
   pointer-events: none;
 }
