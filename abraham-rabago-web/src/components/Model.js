@@ -16,11 +16,11 @@ let useSetLoadValue = (val) => {};
 var Donut;
 const donutAux = {
   colors: {
-    Glaseado: 0xfb88b5,
-    Chispas1: 0x458de7,
-    Chispas2: 0xe752cd,
-    Chispas3: 0xe7d087,
-    Chispas4: 0x6d59e7,
+    icing: 0xfb88b5,
+    sprinkles1: 0x458de7,
+    sprinkles2: 0xe752cd,
+    sprinkles3: 0xe7d087,
+    sprinkles4: 0x6d59e7,
   },
   url: "./donut3D/Donut2.gltf",
 };
@@ -100,7 +100,7 @@ scene.background = new THREE.Color(0xf3bad7);
 // -------------TORUS
 const geometry = new THREE.TorusGeometry(0.8, 0.25, 32, 100);
 const material = new THREE.MeshStandardMaterial({
-  color: donutAux.colors.Glaseado,
+  color: donutAux.colors.icing,
   roughness: 0,
 });
 const torus = new THREE.Mesh(geometry, material);
@@ -128,29 +128,29 @@ gltfLoader.load(
 
 //----------------------GUIs
 
-gui.addColor(donutAux.colors, "Glaseado").onChange(() => {
-  Donut.getObjectByName("Glaseado").material.color.set(
-    donutAux.colors.Glaseado
+gui.addColor(donutAux.colors, "icing").onChange(() => {
+  Donut.getObjectByName("icing").material.color.set(
+    donutAux.colors.icing
   );
 });
-gui.addColor(donutAux.colors, "Chispas1").onChange(() => {
-  Donut.getObjectByName("Chispas1").material.color.set(
-    donutAux.colors.Chispas1
+gui.addColor(donutAux.colors, "sprinkles1").onChange(() => {
+  Donut.getObjectByName("sprinkles1").material.color.set(
+    donutAux.colors.sprinkles1
   );
 });
-gui.addColor(donutAux.colors, "Chispas2").onChange(() => {
-  Donut.getObjectByName("Chispas2").material.color.set(
-    donutAux.colors.Chispas2
+gui.addColor(donutAux.colors, "sprinkles2").onChange(() => {
+  Donut.getObjectByName("sprinkles2").material.color.set(
+    donutAux.colors.sprinkles2
   );
 });
-gui.addColor(donutAux.colors, "Chispas3").onChange(() => {
-  Donut.getObjectByName("Chispas3").material.color.set(
-    donutAux.colors.Chispas3
+gui.addColor(donutAux.colors, "sprinkles3").onChange(() => {
+  Donut.getObjectByName("sprinkles3").material.color.set(
+    donutAux.colors.sprinkles3
   );
 });
-gui.addColor(donutAux.colors, "Chispas4").onChange(() => {
-  Donut.getObjectByName("Chispas4").material.color.set(
-    donutAux.colors.Chispas4
+gui.addColor(donutAux.colors, "sprinkles4").onChange(() => {
+  Donut.getObjectByName("sprinkles4").material.color.set(
+    donutAux.colors.sprinkles4
   );
 });
 

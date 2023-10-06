@@ -1,5 +1,6 @@
 import Scene from "./components/Scene";
 import LoaderUi from "./components/uiLoader";
+import BuyMeACoffee from "./components/buymeacoffee";
 import { useState, createContext } from "react";
 
 // export const loadingContext = createContext();
@@ -28,6 +29,7 @@ function App() {
         // isLoaded={isLoaded}
         setIsAnimationCompleted={setIsAnimationCompleted}
       />
+      <BuyMeACoffee isAnimationCompleted={isAnimationCompleted} />
     </>
   );
   //       <loadingContext.Provider value={{ loadState, setLoadState }}>
