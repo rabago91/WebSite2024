@@ -27,7 +27,7 @@ const BuyMeACoffee = ({ isAnimationCompleted }) => {
               // backgroundColor: "blueviolet",
             }}
           >
-            Making indie games.<span> </span>
+            By Abraham Rabago.<span> </span>
             <a href="https://www.buymeacoffee.com/rabago91t" target="_blank" style={{pointerEvents: 'all',}}>Buy me a <span style={{fontStyle:'italic'}}>coffee</span></a>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 // import {loadingContext} from '../App'
 import Lottie from "lottie-react";
-import loadinganimation from "./LottieAnimations/loadinganimationdonutpink.json";
+import loadinganimation from "./LottieAnimations/bulbanimation.json";
 
 const LoaderUi = ({ setIsAnimationCompleted }) => {
   const lottieRef = useRef(null);
